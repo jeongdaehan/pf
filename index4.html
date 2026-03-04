@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      :root {
+        --bg: #f3f4ed; /* 연한 오트밀 배경 */
+        --primary: #588157; /* 딥 세이지 그린 */
+        --accent: #344e41; /* 다크 포레스트 */
+        --text: #333533;
+        --transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+      }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+      }
+
+      h1,
+      h3,
+      em {
+        font-family: 'Playfair Display', serif;
+      }
+
+      /* 진행 바 */
+      .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: var(--primary);
+        width: 0%;
+        z-index: 2000;
+      }
+
+      /* 히어로 섹션 */
+      .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 0 10%;
+        gap: 50px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3rem, 8vw, 6rem);
+        line-height: 1;
+        margin: 20px 0;
+      }
+
+      .hero em {
+        font-style: italic;
+        color: var(--primary);
+      }
+
+      .abstract-shape {
+        width: 400px;
+        height: 500px;
+        background: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=800&q=80');
+        background-size: cover;
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; /* 유기적인 돌 모양 */
+        animation: morph 10s infinite alternate;
+      }
+
+      @keyframes morph {
+        0% {
+          border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        100% {
+          border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        }
+      }
+
+      /* 벤토 그리드 */
+      .bento {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: 250px;
+        gap: 20px;
+        padding-bottom: 100px;
+      }
+
+      .grid-item {
+        background: white;
+        border-radius: 30px; /* 둥근 모서리로 부드러운 인상 */
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .item-large {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+      .item-medium {
+        grid-column: span 2;
+      }
+      .grid-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* 리빌 애니메이션 효과 */
+      .reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: var(--transition);
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // 1. 스크롤 진행 바 로직
+        window.addEventListener('scroll', () => {
+          const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          const scrolled = (winScroll / height) * 100;
+          document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+
+        // 2. Intersection Observer로 요소 서서히 나타내기
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+            }
+          });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+      });
+    </script>
+  </head>
+  <body>
+    <div class="progress-bar"></div>
+
+    <nav>
+      <div class="logo">OASIS.</div>
+      <div class="menu-trigger">Menu</div>
+    </nav>
+
+    <main>
+      <section class="hero reveal">
+        <div class="hero-text">
+          <span class="sub-title">Visual Storyteller & Developer</span>
+          <h1>자연의 질감을 <br /><em>디지털</em>에 담다.</h1>
+          <p>불필요한 것을 덜어내고 본질에 집중하는 디자인을 지향합니다.</p>
+        </div>
+        <div class="hero-image-box">
+          <div class="abstract-shape"></div>
+        </div>
+      </section>
+
+      <section class="bento container">
+        <div class="grid-item item-large reveal">
+          <h3>Our Philosophy</h3>
+          <p>단순함은 궁극의 정교함입니다. 자연이 그러하듯, 가장 효율적인 구조가 가장 아름답다고 믿습니다.</p>
+        </div>
+        <div class="grid-item item-small reveal" style="background: #e8eedf">
+          <span>Projects</span>
+          <h2>12+</h2>
+        </div>
+        <div class="grid-item item-small reveal" style="background: #dde5b6">
+          <span>Experience</span>
+          <h2>4Y</h2>
+        </div>
+        <div class="grid-item item-medium reveal">
+          <img
+            src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=500&q=80"
+            alt="Nature texture"
+          />
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

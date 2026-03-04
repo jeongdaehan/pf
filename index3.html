@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('.full-page');
+        const dots = document.querySelectorAll('.dot');
+
+        // 점(Dot)을 업데이트하는 함수 분리
+        const updateDots = (id) => {
+          dots.forEach((dot) => {
+            dot.classList.remove('active');
+            if (dot.getAttribute('href') === `#${id}`) {
+              dot.classList.add('active');
+            }
+          });
+        };
+
+        // Intersection Observer 설정
+        const observerOptions = {
+          root: null, // null은 브라우저 뷰포트를 기준
+          rootMargin: '0px',
+          threshold: 0.5, // 섹션이 50% 이상 보일 때 변경
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            // 섹션이 화면에 들어왔을 때만 실행
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute('id');
+              updateDots(id);
+            }
+          });
+        }, observerOptions);
+
+        // 모든 섹션을 감시하기 시작
+        sections.forEach((section) => observer.observe(section));
+
+        // 추가: 클릭했을 때 즉시 active를 바꾸고 싶다면?
+        dots.forEach((dot) => {
+          dot.addEventListener('click', (e) => {
+            dots.forEach((d) => d.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+          });
+        });
+      });
+    </script>
+    <style>
+      /* 1. 부모 컨테이너: 스크롤 스냅 활성화 */
+      .scroll-container {
+        height: 100vh; /* 화면 꽉 차게 */
+        overflow-y: scroll; /* 스크롤 허용 */
+        scroll-snap-type: y mandatory; /* Y축 강제 스냅 */
+        scroll-behavior: smooth; /* 부드러운 이동 */
+      }
+
+      /* 2. 각 섹션: 한 페이지 크기로 설정 */
+      .full-page {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        scroll-snap-align: start; /* 섹션 시작점에 스냅 */
+        font-size: 3rem;
+        scroll-snap-align: start;
+        scroll-snap-stop: always; /* 핵심: 스크롤 속도가 빨라도 다음 섹션에서 무조건 멈춤 */
+      }
+
+      /* 섹션별 배경색 (구분용) */
+      #hero {
+        background-color: #f8fafc;
+      }
+      #about {
+        background-color: #6366f1;
+        color: white;
+      }
+      #work {
+        background-color: #1e293b;
+        color: white;
+      }
+
+      /* 도트들의 컨테이너 */
+      .side-nav {
+        position: fixed;
+        right: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        z-index: 1000;
+      }
+
+      /* 기본 도트 */
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.2); /* 평소엔 흐릿하게 */
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+      }
+
+      /* 활성화된 도트 (JS에 의해 추가됨) */
+      .dot.active {
+        background-color: #6366f1; /* 진한 파란색 */
+        transform: scale(1.5); /* 크기 키우기 */
+        border-color: rgba(99, 102, 241, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scroll-container">
+      <aside class="side-nav">
+        <a href="#hero" class="dot active"></a>
+        <a href="#about" class="dot"></a>
+        <a href="#work" class="dot"></a>
+        <a href="#contact" class="dot"></a>
+      </aside>
+
+      <section id="hero" class="full-page"><h1>Hero</h1></section>
+      <section id="about" class="full-page"><h1>About</h1></section>
+      <section id="work" class="full-page"><h1>Work</h1></section>
+      <section id="contact" class="full-page"><h1>Contact</h1></section>
+    </div>
+  </body>
+</html>

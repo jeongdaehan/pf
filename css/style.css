@@ -1,0 +1,163 @@
+/* 1. 글로벌 변수 설정 - 색상 관리가 매우 편해집니다 */
+:root {
+  --primary-color: #6366f1;
+  --bg-color: #ffffff;
+  --text-dark: #1f2937;
+  --text-light: #6b7280;
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --border-color: #e5e7eb;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 2. 기본 세팅 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc;
+  color: var(--text-dark);
+  line-height: 1.7;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* 3. 내비게이션 (Glassmorphism) */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px); /* 뒤 배경 흐리게 */
+  border-bottom: 1px solid var(--border-color);
+}
+nav {
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: -1px;
+}
+.logo span {
+  color: var(--primary-color);
+}
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  align-items: center;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: var(--transition);
+}
+.nav-links a:hover {
+  color: var(--primary-color);
+}
+
+/* 4. 히어로 섹션 */
+#hero {
+  padding: 180px 0 100px;
+  text-align: center;
+}
+.badge {
+  background: #e0e7ff;
+  color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+#hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem); /* 반응형 폰트 크기 */
+  line-height: 1.1;
+  margin: 1.5rem 0;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+#hero h1 span {
+  color: var(--primary-color);
+}
+#hero p {
+  font-size: 1.25rem;
+  color: var(--text-light);
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+}
+
+/* 버튼 디자인 */
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+  transition: var(--transition);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.4);
+}
+
+/* 5. 프로젝트 그리드 */
+.section-header {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* 2열 유지하되 모바일에선 1열 */
+  gap: 3rem;
+}
+.project-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: var(--transition);
+}
+.project-card:hover {
+  transform: scale(1.02);
+  border-color: var(--primary-color);
+}
+.project-img {
+  height: 250px;
+  background: #ddd;
+} /* 실제 이미지로 교체 */
+.project-info {
+  padding: 2rem;
+}
+.tags {
+  margin: 1rem 0;
+  display: flex;
+  gap: 0.5rem;
+}
+.tags span {
+  font-size: 0.75rem;
+  background: #f1f5f9;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  color: var(--text-light);
+}
+.view-link {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: 700;
+}
