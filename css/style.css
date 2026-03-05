@@ -161,3 +161,6 @@ nav {
   color: var(--primary-color);
   font-weight: 700;
 }
+
+@media screen {
+}
