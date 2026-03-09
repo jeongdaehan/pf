@@ -557,6 +557,7 @@ footer .copy span {
     padding: 0;
   }
 
+  #hero .text .title,
   #hero .text .content {
     width: 100%;
   }
