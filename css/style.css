@@ -185,7 +185,7 @@ header .switch .menu-btn svg path {
 }
 
 header .switch .menu-btn.active svg path:nth-child(1) {
-  transform: translate(-7px, 5px) rotate(45deg);
+  transform: translate(-7px, 4px) rotate(45deg);
 }
 
 header .switch .menu-btn.active svg path:nth-child(2) {
@@ -193,7 +193,7 @@ header .switch .menu-btn.active svg path:nth-child(2) {
 }
 
 header .switch .menu-btn.active svg path:nth-child(3) {
-  transform: translate(-7px, -5px) rotate(-45deg);
+  transform: translate(-7px, -6px) rotate(-45deg);
 }
 
 header .box.sticky {
