@@ -9,7 +9,6 @@ const gnbLinks = document.querySelectorAll('#gnb a');
 const sections = document.querySelectorAll('main section');
 
 let originalY = headerBox.offsetTop;
-
 let resizeTimer;
 
 // [공통 닫기 함수] - 중복 코드를 줄이기 위해 함수로 만듭니다.
